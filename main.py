@@ -84,15 +84,33 @@ class Station():
         self.stationListIDList =[]
     def push(self,stationId):
         self.stationListIDList.append(stationId)
-class Arrmsg():
+class Arrmsg1():
     def __init__(self):
-        self.ArrmsgList = []
-    def push(self, arrmsg):
-        self.ArrmsgList.append(arrmsg)
+        self.Arrmsg1List = []
+    def push(self, arrmsg1):
+        self.Arrmsg1List.append(arrmsg1)
+class Arrmsg2():
+    def __init__(self):
+        self.Arrmsg2List = []
+    def push(self, arrmsg2):
+        self.Arrmsg2List.append(arrmsg2)
+class BusRouteAbrv():
+    def __init__(self):
+        self.busRouteAbrvList = []
+    def push(self, busRouteAbrv):
+        self.busRouteAbrvList.append(busRouteAbrv)
+class BusRouteId():
+    def __init__(self):
+        self.busRouteIdList = []
+    def push(self, busRouteId):
+        self.busRouteIdList.append(busRouteId)
 
 
 station= Station()
-arrmsg=Arrmsg()
+arrmsg1=Arrmsg1()
+arrmsg2=Arrmsg2()
+busRouteAbrv=BusRouteAbrv()
+busRouteId=BusRouteId()
 
 def getLowStationByNameFunction():
     global station
@@ -103,26 +121,39 @@ def getLowStationByNameFunction():
 
     for i in json_type['msgBody']['itemList']:
         station.push(i['stId'])
-def getArrmsg():
-    global arrmsg
+def getArrmsg1():
+    global arrmsg1
     url = 'http://ws.bus.go.kr/api/rest/arrive/getLowArrInfoByStId'
     params = {'serviceKey': 'De9xX5IQfcrOPRXQnr4v7a/NyzYfniSnX/x5RIh4q6vgLKS2JbZXxPl0Vb1ax4fsc3CFkyKjffKfZ0Iu5fi2aA==','stId':'111000173','resultType' : 'json'}
     response = requests.get(url, params=params)
     json_type = response.json()
-    print(response.content)
     for i in json_type['msgBody']['itemList']:
-        arrmsg.push(i['arrmsg1'])
+        arrmsg1.push(i['arrmsg1'])
+        arrmsg2.push(i['arrmsg2'])
+        busRouteAbrv.push(i['busRouteAbrv'])
+        busRouteId.push(i['busRouteId'])
+
+
 
 
 # getLowStationByNameFunction()
-getArrmsg()
+getArrmsg1()
 
 print()
 for i in range(len(station.stationListIDList)):
     print(station.stationListIDList[i])
 print()
-for i in range(len(arrmsg.ArrmsgList)):
-    print(arrmsg.ArrmsgList[i])
+for i in range(len(arrmsg1.Arrmsg1List)):
+    print(arrmsg1.Arrmsg1List[i])
+print()
+for i in range(len(arrmsg2.Arrmsg2List)):
+    print(arrmsg2.Arrmsg2List[i])
+print()
+for i in range(len(busRouteAbrv.busRouteAbrvList)):
+    print(busRouteAbrv.busRouteAbrvList[i])
+print()
+for i in range(len(busRouteId.busRouteIdList)):
+    print(busRouteId.busRouteIdList[i])
 
 
 # import requests
